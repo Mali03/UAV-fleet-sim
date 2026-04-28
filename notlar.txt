@@ -1,14 +1,13 @@
 cd C:\Users\Mali\Desktop\Veri Yapıları Proje
-gcc main.c iha/iha.c hash_map/hash_map.c bst/bst.c -o program.exe && program.exe
+gcc main.c iha/iha.c hash_map/hash_map.c bst/bst.c queue/queue.c -o program.exe && program.exe
 
 Veri yapısı eşleştirmeleri:
 - Graf → waypoint ağı, Dijkstra ile rota
 - Priority Queue / Heap → görev önceliklendirme
 + BST → İHA ID'ye göre kayıt ve arama
-- Queue → kalkış sırası
+- Queue → kalkış sırası M
 - Stack → görev geri alma, waypoint geçmişi
 + Hash Map → İHA ID → anlık durum
-- Array → telemetri geçmişi
-- Linked List → dinamik waypoint listesi
+- Linked List → dinamik waypoint listesi N
 - Set → yasak uçuş bölgeleri
 - Tree → görev hiyerarşisi
