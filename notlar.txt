@@ -15,3 +15,5 @@ Veri yapısı eşleştirmeleri:
 
 Git repoya bağlama
 git init
+
+ssh testi -> ssh -T git@github.com (bağlı mısın değil misin)
