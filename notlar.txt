@@ -12,8 +12,3 @@ Veri yapısı eşleştirmeleri:
 - Linked List → dinamik waypoint listesi
 - Set → yasak uçuş bölgeleri
 - Tree → görev hiyerarşisi
-
-Git repoya bağlama
-git init
-
-ssh testi -> ssh -T git@github.com (bağlı mısın değil misin)
