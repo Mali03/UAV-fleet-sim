@@ -12,10 +12,10 @@ Queue *queueCreate()
 void queueEnqueue(Queue *q, Iha *iha)
 {
     QueueNode *newNode = (QueueNode *)malloc(sizeof(QueueNode));
-    newNode->data = x;
+    newNode->value = iha;
     newNode->next = NULL;
 
-    if (front == NULL) // listede eleman yoksa
+    if (q->head == NULL) // listede eleman yoksa
     {
         q->head = newNode;
         q->tail = newNode;
@@ -29,14 +29,39 @@ void queueEnqueue(Queue *q, Iha *iha)
 
 Iha *queueDequeue(Queue *q)
 {
-    if (q->front == NULL)
+    if (q->head == NULL)
     {
         printf("Kuyruk bos.");
     }
     else
     {
-        QueueNode *temp = q->front->next;
-        free(q->front);
-        front = temp;
+        Iha *value = q->head->value;
+        QueueNode *temp = q->head->next;
+        free(q->head);
+        q->head = temp;
+        return value;
     }
+}
+
+Iha *queuePeek(Queue *q)
+{
+    if (q->head == NULL)
+        return NULL;
+
+    return q->head->value;
+}
+
+int queueIsEmpty(Queue *q) {
+    return q->head == NULL;
+}
+
+void queueFree(Queue *q) {
+    QueueNode *temp;
+    while (q->head != NULL) {
+        temp = q->head;
+        q->head = q->head->next;
+        free(temp);
+    }
+
+    free(q);
 }
