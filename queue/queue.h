@@ -5,7 +5,7 @@
 
 typedef struct QueueNode
 {
-    int data;
+    Iha data;
     struct QueueNode *next;
 } QueueNode;
 
@@ -17,5 +17,10 @@ typedef struct Queue {
 //* Fonksiyon İmzaları
 
 Queue* queueCreate();
+void queueEnqueue(Queue *q, Iha *iha);
+Iha* queueDequeue(Queue *q);
+Iha* queuePeek(Queue *q);
+int queueIsEmpty(Queue *q);
+void queueFree(Queue *q);
 
 #endif
