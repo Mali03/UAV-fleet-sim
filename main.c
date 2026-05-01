@@ -3,8 +3,9 @@
 
 #include "iha/iha.h"
 #include "hash_map/hash_map.h"
-
-
+#include "linked_list/linked_list.h"
+#include "queue/queue.h"
+#include "bst/bst.h"
 
 int main()
 {
