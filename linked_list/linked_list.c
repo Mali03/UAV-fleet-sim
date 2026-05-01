@@ -2,16 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node *createNode(int x, int y)
+Node *createNode(Iha *iha)
 {
     Node *new = (Node *)malloc(sizeof(Node));
-    new->x = x;
-    new->y = y;
+    new->iha = iha;
     new->next = NULL;
     return new;
 }
 
-Node *addHead(Node *head, int x, int y)
+Node *addHead(Node *head, Iha *iha)
 {
     Node *yeni = (struct Node *)malloc(sizeof(Node));
     if (!yeni)
@@ -20,16 +19,14 @@ Node *addHead(Node *head, int x, int y)
         return head;
     }
 
-    yeni->x = x;
-    yeni->y = y;
+    yeni->iha = iha;
     yeni->next = head;
 
     return yeni;
 }
 
-Node *addTail(Node *head, int x, int y)
+Node *addTail(Node *head, Iha *iha)
 {
-
     Node *yeni = (struct Node *)malloc(sizeof(Node));
     if (!yeni)
     {
@@ -37,8 +34,7 @@ Node *addTail(Node *head, int x, int y)
         return head;
     }
 
-    yeni->x = x;
-    yeni->y = y;
+    yeni->iha = iha;
     yeni->next = NULL;
 
     if (head == NULL)
@@ -54,21 +50,6 @@ Node *addTail(Node *head, int x, int y)
     return head;
 }
 
-Node *locate(Node *head, int x, int y)
-{
-    while (head)
-    {
-        if (head->x == x && head->y == y)
-        {
-            printf("Deger bulundu!\n");
-            return head;
-        }
-        head = head->next;
-    }
-    printf("Deger bulunmadi\n");
-    return NULL;
-}
-
 void printList(Node *head)
 {
     if (head == NULL)
@@ -79,7 +60,7 @@ void printList(Node *head)
     const Node *temp2 = head;
     while (temp2 != NULL)
     {
-        printf("x: %d y: %d\n", temp2->x, temp2->y);
+        printf("x: %d y: %d\n", temp2->iha->x, temp2->iha->y);
         temp2 = temp2->next;
     }
 }
@@ -133,17 +114,17 @@ Node *removeTail(Node *head)
     return head;
 }
 
-Node *removeByValue(Node *head, int x, int y)
+Node *removeByValue(Node *head, Iha *iha)
 {
     if (!head)
         return NULL;
 
-    if (head->x == x && head->y == y)
+    if (head->iha->x == iha->x && head->iha->y == iha->y)
         return removeHead(head);
 
     Node *temp = head;
 
-    while (temp->next && temp->next->x != x && temp->next->y)
+    while (temp->next && (temp->next->iha->x != iha->x || temp->next->iha->y != iha->y))
         temp = temp->next;
 
     if (temp->next)
