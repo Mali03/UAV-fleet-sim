@@ -60,7 +60,7 @@ void printList(Node *head)
     const Node *temp2 = head;
     while (temp2 != NULL)
     {
-        printf("x: %d y: %d\n", temp2->iha->x, temp2->iha->y);
+        printf("latitude: %d longitude: %d\n", temp2->iha->lat, temp2->iha->lon);
         temp2 = temp2->next;
     }
 }
@@ -119,12 +119,12 @@ Node *removeByValue(Node *head, Iha *iha)
     if (!head)
         return NULL;
 
-    if (head->iha->x == iha->x && head->iha->y == iha->y)
+    if (head->iha->lon == iha->lat && head->iha->lon == iha->lon)
         return removeHead(head);
 
     Node *temp = head;
 
-    while (temp->next && (temp->next->iha->x != iha->x || temp->next->iha->y != iha->y))
+    while (temp->next && (temp->next->iha->lat != iha->lat || temp->next->iha->lon != iha->lon))
         temp = temp->next;
 
     if (temp->next)

@@ -12,8 +12,8 @@ Iha *ihaCreate(int id, char *name, float fuel)
     newIha->id = id;
     strcpy(newIha->name, name);
     newIha->fuel = fuel;
-    newIha->x = 0.0f;
-    newIha->y = 0.0f;
+    newIha->lat = 0.0f;
+    newIha->lon = 0.0f;
     newIha->status = BOSTA;
     newIha->currentMission = KESIF;
 
@@ -29,20 +29,20 @@ void ihaPrint(Iha *iha)
     printf("ID: %d\n", iha->id);
     printf("Isim: %s\n", iha->name);
     printf("Yakiti: %.1f%%\n", iha->fuel);
-    printf("Koordinatlar: x:%fy:%f\n\n", iha->x, iha->y);
+    printf("Koordinatlar: lat:%f lon:%f\n\n", iha->lat, iha->lon);
 }
 
-void ihaUpdateFuel(Iha *iha, float amount)
+void ihaUpdateFuel(Iha *iha, float newFuel)
 {
     if (iha == NULL)
         return;
 
-    iha->fuel += amount;
-
-    if (iha->fuel < 0)
+    if (newFuel < 0)
         iha->fuel = 0;
-    else if (iha->fuel > 100)
+    else if (newFuel > 100)
         iha->fuel = 100;
+    else
+        iha->fuel = newFuel;
 }
 
 void ihaSetStatus(Iha *iha, IhaStatus status)

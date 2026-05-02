@@ -24,7 +24,7 @@ typedef struct Iha {
     int id;
     char name[50];
     float fuel; // 0-100 aralığında (%)
-    float x, y; // konum (varsayılan = 0.0f)
+    float lat, lon; // konum (varsayılan = 0.0f) (lat = latitude (enlem) - lon = longitude (boylam))
     IhaStatus status; // varsayılan = BOSTA
     MissionType currentMission; // varsayılan = KESIF
 } Iha;
@@ -33,7 +33,7 @@ typedef struct Iha {
 
 Iha *ihaCreate(int id, char *name, float fuel);
 void ihaPrint(Iha *iha);
-void ihaUpdateFuel(Iha *iha, float amount); // amount + ise artır - ise azalt (miktara ekleme yapar)
+void ihaUpdateFuel(Iha *iha, float newFuel);
 void ihaSetStatus(Iha *iha, IhaStatus status);
 int ihaIsAvailable(Iha *iha); // görev atanabilir mi?
 void ihaFree(Iha *iha);
