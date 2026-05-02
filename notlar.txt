@@ -2,7 +2,7 @@ cd C:\Users\Mali\Desktop\Veri Yapıları Proje
 gcc main.c iha/iha.c hash_map/hash_map.c bst/bst.c linked_list/linked_list.c -o program.exe && program.exe
 
 Veri yapısı eşleştirmeleri:
-BST → İHA ID'ye göre kayıt ve arama
+BST → waypoint deposu (ekle/ara/sil)
 Queue → kalkış sırası M
 Hash Map → İHA ID → anlık durum
-Linked List → dinamik waypoint listesi N
+Linked List → bir görevin waypoint sırası

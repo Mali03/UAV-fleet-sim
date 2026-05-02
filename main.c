@@ -10,11 +10,12 @@
 int main()
 {
     int choice, subChoice;
-    int id;
+    int id, status;
     float fuel;
     char name[50];
     Iha *iha;
     HashMap *map = hashMapCreate();
+    int subMenu = 1;
 
     printf("\n==========================================================");
     printf("\nInsansiz Hava Araci Filo Yonetim ve Gorev Planlama Sistemi");
@@ -38,13 +39,15 @@ int main()
         switch (choice)
         {
         case 1:
-            while (1)
+            subMenu = 1;
+            while (subMenu)
             {
                 printf("\n1- IHA Olustur\n");
                 printf("2- IHA Yazdir\n");
                 printf("3- IHA Yakit Guncelle\n");
                 printf("4- IHA Durum Ayarla\n");
                 printf("5- IHA Sil\n");
+                printf("0- Geri don\n");
 
                 printf("\nBir secim yapiniz: ");
 
@@ -87,7 +90,7 @@ int main()
                     }
                     break;
                 case 3:
-                    printf("\nLutfen IHA'nin idsini giriniz: ");
+                    printf("\nLutfen yakiti guncellenecek IHA'nin idsini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -100,12 +103,12 @@ int main()
                         printf("Yeni yakit miktarini giriniz: ");
                         scanf("%f", &fuel);
                         ihaUpdateFuel(iha, fuel);
-                        printf("[#%d] %s isimli IHA'nin yakit miktari %f olarak guncellendi.\n", id, iha->name, fuel);
+                        printf("[#%d] %s isimli IHA'nin yakit miktari %.2f olarak guncellendi.\n", id, iha->name, fuel);
                     }
                     break;
 
                 case 4:
-                    printf("\nLutfen IHA'nin idsini giriniz: ");
+                    printf("\nLutfen durumu ayarlanacak IHA'nin idsini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -115,10 +118,33 @@ int main()
                     }
                     else
                     {
-                        printf("Yeni yakit miktarini giriniz: ");
-                        scanf("%d", &fuel);
-                        ihaUpdateFuel(iha, fuel);
+                        printf("0- Bosta\n1- GOREVDE\n2- ARIZALI\n3- YAKIT_DUSUK\n");
+                        printf("Yeni durumu giriniz: ");
+                        scanf("%d", &status);
+                        ihaSetStatus(iha, (IhaStatus)status);
+                        printf("IHA'nin durumu guncellendi.\n");
                     }
+                    break;
+                case 5:
+                    printf("\nLutfen silinecek IHA'nin idsini giriniz: ");
+                    scanf("%d", &id);
+                    iha = hashMapGet(map, id);
+
+                    if (iha == NULL)
+                    {
+                        printf("IHA bulunamadi.\n");
+                    }
+                    else
+                    {
+                        printf("[#%d] %s isimli IHA filodan kaldirildi.", id, iha->name);
+                        ihaFree(iha);
+                        hashMapRemove(map, id);
+                    }
+                    break;
+                case 0:
+                    subMenu = 0;
+                    break;
+                default:
                     break;
                 }
             }
