@@ -6,6 +6,9 @@
 #include "linked_list/linked_list.h"
 #include "queue/queue.h"
 #include "bst/bst.h"
+#include "waypoint/linked_list.h"
+
+// TODO tüm ihaları yazdırma ekle
 
 int main()
 {
@@ -15,12 +18,12 @@ int main()
     char name[50];
     Iha *iha;
     HashMap *map = hashMapCreate();
-    int subMenu = 1;
+    int menu = 1, subMenu = 1;
 
     printf("\n==========================================================");
     printf("\nInsansiz Hava Araci Filo Yonetim ve Gorev Planlama Sistemi");
     printf("\n==========================================================\n");
-    while (1)
+    while (menu)
     {
         printf("\n1- IHA Islemleri\n");
         printf("2- Waypoint Islemleri\n");
@@ -148,6 +151,61 @@ int main()
                     break;
                 }
             }
+            break;
+
+        case 2:
+            printf("\nLutfen waypointleri duzenlenecek IHA'nin idsini giriniz: ");
+            scanf("%d", &id);
+            iha = hashMapGet(map, id);
+
+            if (iha == NULL)
+            {
+                printf("IHA bulunamadi.\n");
+                break;
+            }
+
+            subMenu = 1;
+            while (subMenu)
+            {
+                printf("\n1- Waypoint Ekle\n");
+                printf("2- Waypoint Sil\n");
+                printf("3- Waypoint Listele\n");
+                printf("4- ID ile waypoint ara\n");
+                printf("0- Geri don\n");
+
+                printf("\nBir secim yapiniz: ");
+
+                if (scanf("%d", &subChoice) != 1)
+                {
+                    while (getchar() != '\n')
+                        ;
+                    printf("\nYanlis secim yapildi! Tekrar deneyiniz.\n\n");
+                    continue;
+                }
+
+                switch (subChoice)
+                {
+                case 1:
+                {
+                    Waypoint *wp = (Waypoint *)malloc(sizeof(Waypoint));
+                    printf("Waypoint ID'sini giriniz: ");
+                    scanf("%d", &wp->id);
+                    printf("Latitude: ");
+                    scanf("%f", &wp->latitude);
+                    printf("Longitude: ");
+                    scanf("%f", &wp->longitude);
+                    iha->waypointList = wllAddTail(iha->waypointList, wp);
+                    printf("Waypoint eklendi.\n");
+                }
+
+                break;
+                }
+            }
+            break;
+
+        case 0:
+            printf("\nProgram sonlandirildi.");
+            menu = 0;
             break;
 
         default:
