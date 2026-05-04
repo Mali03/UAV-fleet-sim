@@ -60,7 +60,7 @@ void wllPrintList(WaypointNode *head)
     WaypointNode *temp2 = head;
     while (temp2 != NULL)
     {
-        printf("latitude: %d longitude: %d\n", temp2->waypoint->latitude, temp2->waypoint->longitude);
+        printf("latitude: %f longitude: %f\n", temp2->waypoint->latitude, temp2->waypoint->longitude);
         temp2 = temp2->next;
     }
 }

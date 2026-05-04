@@ -1,18 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "queue.h"
 
-Queue *queueCreate()
+MissionQueue *missionQueueCreate()
 {
-    Queue *newQueue = (Queue *)malloc(sizeof(Queue));
+    MissionQueue *newQueue = (MissionQueue *)malloc(sizeof(MissionQueue));
     newQueue->head = NULL;
     newQueue->tail = NULL;
 
     return newQueue;
 }
 
-void queueEnqueue(Queue *q, Iha *iha)
+void missionQueueEnqueue(MissionQueue *q, Mission *mission)
 {
-    QueueNode *newNode = (QueueNode *)malloc(sizeof(QueueNode));
-    newNode->value = iha;
+    MissionQueueNode *newNode = (MissionQueueNode *)malloc(sizeof(MissionQueueNode));
+    newNode->value = mission;
     newNode->next = NULL;
 
     if (q->head == NULL) // listede eleman yoksa
@@ -27,23 +29,24 @@ void queueEnqueue(Queue *q, Iha *iha)
     }
 }
 
-Iha *queueDequeue(Queue *q)
+Mission *missionQueueDequeue(MissionQueue *q)
 {
     if (q->head == NULL)
     {
         printf("Kuyruk bos.");
+        return NULL;
     }
     else
     {
-        Iha *value = q->head->value;
-        QueueNode *temp = q->head->next;
+        Mission *value = q->head->value;
+        MissionQueueNode *temp = q->head->next;
         free(q->head);
         q->head = temp;
         return value;
     }
 }
 
-Iha *queuePeek(Queue *q)
+Mission *missionQueuePeek(MissionQueue *q)
 {
     if (q->head == NULL)
         return NULL;
@@ -51,12 +54,12 @@ Iha *queuePeek(Queue *q)
     return q->head->value;
 }
 
-int queueIsEmpty(Queue *q) {
+int missionQueueIsEmpty(MissionQueue *q) {
     return q->head == NULL;
 }
 
-void queueFree(Queue *q) {
-    QueueNode *temp;
+void missionQueueFree(MissionQueue *q) {
+    MissionQueueNode *temp;
     while (q->head != NULL) {
         temp = q->head;
         q->head = q->head->next;

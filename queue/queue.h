@@ -1,27 +1,45 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include "../waypoint/waypoint.h"
+
 //* Veri Modelleri
 
-typedef struct QueueNode
+// İHA görev tipleri
+typedef enum
 {
-    Iha *value;
-    struct QueueNode *next;
-} QueueNode;
+    KESIF = 0,
+    KARGO = 1,
+    ACIL = 2
+} MissionType;
 
-typedef struct Queue
+// Görev structı
+typedef struct
 {
-    QueueNode *head;
-    QueueNode *tail;
-} Queue;
+    int id;
+    MissionType type;
+    int ihaId;
+} Mission;
+
+typedef struct MissionQueueNode
+{
+    Mission *value;
+    struct MissionQueueNode *next;
+} MissionQueueNode;
+
+typedef struct MissionQueue
+{
+    MissionQueueNode *head;
+    MissionQueueNode *tail;
+} MissionQueue;
 
 //* Fonksiyon İmzaları
 
-Queue *queueCreate();
-void queueEnqueue(Queue *q, Iha *iha);
-Iha *queueDequeue(Queue *q);
-Iha *queuePeek(Queue *q);
-int queueIsEmpty(Queue *q);
-void queueFree(Queue *q);
+MissionQueue *missionQueueCreate();
+void missionQueueEnqueue(MissionQueue *q, Mission *mission);
+Mission *missionQueueDequeue(MissionQueue *q);
+Mission *missionQueuePeek(MissionQueue *q);
+int missionQueueIsEmpty(MissionQueue *q);
+void missionQueueFree(MissionQueue *q);
 
 #endif

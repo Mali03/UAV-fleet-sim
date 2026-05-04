@@ -15,7 +15,6 @@ Iha *ihaCreate(int id, char *name, float fuel)
     newIha->lat = 0.0f;
     newIha->lon = 0.0f;
     newIha->status = BOSTA;
-    newIha->currentMission = KESIF;
     newIha->waypointList = NULL;
 
     return newIha;

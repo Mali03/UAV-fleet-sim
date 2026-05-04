@@ -3,7 +3,6 @@
 
 #include "iha/iha.h"
 #include "hash_map/hash_map.h"
-#include "linked_list/linked_list.h"
 #include "queue/queue.h"
 #include "bst/bst.h"
 #include "waypoint/linked_list.h"
@@ -12,13 +11,15 @@
 
 int main()
 {
+    int menu = 1, subMenu = 1;
     int choice, subChoice;
     int id, status;
     float fuel;
     char name[50];
     Iha *iha;
     HashMap *map = hashMapCreate();
-    int menu = 1, subMenu = 1;
+    Bst *missionBst = bstCreate();
+    Mission *mission;
 
     printf("\n==========================================================");
     printf("\nInsansiz Hava Araci Filo Yonetim ve Gorev Planlama Sistemi");
@@ -65,21 +66,22 @@ int main()
                 switch (subChoice)
                 {
                 case 1:
-                    printf("\nLutfen bir IHA ismi giriniz: ");
-                    scanf("%s", name);
-                    printf("\nLutfen olusturulacak IHA'nin idsini girin: ");
+                    printf("\nLutfen olusturulacak IHA'nin ID'sini girin: ");
                     scanf("%d", &id);
+                    printf("\nLutfen olusturulacak IHA'nin ismini giriniz: ");
+                    scanf("%s", name);
                     printf("\nLutfen olusturulacak IHA'nin yakit doluluk oranini girin (0-100): ");
                     scanf("%f", &fuel);
 
                     iha = ihaCreate(id, name, fuel);
+                    iha->missionQueue = missionQueueCreate();
                     hashMapPut(map, id, iha);
 
                     printf("IHA basariyla olusturuldu.\n");
 
                     break;
                 case 2:
-                    printf("\nLutfen IHA'nin idsini giriniz: ");
+                    printf("\nLutfen IHA'nin ID'sini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -93,7 +95,7 @@ int main()
                     }
                     break;
                 case 3:
-                    printf("\nLutfen yakiti guncellenecek IHA'nin idsini giriniz: ");
+                    printf("\nLutfen yakiti guncellenecek IHA'nin ID'sini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -111,7 +113,7 @@ int main()
                     break;
 
                 case 4:
-                    printf("\nLutfen durumu ayarlanacak IHA'nin idsini giriniz: ");
+                    printf("\nLutfen durumu ayarlanacak IHA'nin ID'sini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -121,7 +123,7 @@ int main()
                     }
                     else
                     {
-                        printf("0- Bosta\n1- GOREVDE\n2- ARIZALI\n3- YAKIT_DUSUK\n");
+                        printf("0- BOSTA\n1- GOREVDE\n2- ARIZALI\n3- YAKIT_DUSUK\n\n");
                         printf("Yeni durumu giriniz: ");
                         scanf("%d", &status);
                         ihaSetStatus(iha, (IhaStatus)status);
@@ -129,7 +131,7 @@ int main()
                     }
                     break;
                 case 5:
-                    printf("\nLutfen silinecek IHA'nin idsini giriniz: ");
+                    printf("\nLutfen silinecek IHA'nin ID'sini giriniz: ");
                     scanf("%d", &id);
                     iha = hashMapGet(map, id);
 
@@ -148,13 +150,14 @@ int main()
                     subMenu = 0;
                     break;
                 default:
+                    printf("\nLutfen seceneklerden bir tanesini secin.\n");
                     break;
                 }
             }
             break;
 
         case 2:
-            printf("\nLutfen waypointleri duzenlenecek IHA'nin idsini giriniz: ");
+            printf("\nLutfen waypointleri duzenlenecek IHA'nin ID'sini giriniz: ");
             scanf("%d", &id);
             iha = hashMapGet(map, id);
 
@@ -170,7 +173,7 @@ int main()
                 printf("\n1- Waypoint Ekle\n");
                 printf("2- Waypoint Sil\n");
                 printf("3- Waypoint Listele\n");
-                printf("4- ID ile waypoint ara\n");
+                printf("4- Waypoint Sayisini Yazdir\n");
                 printf("0- Geri don\n");
 
                 printf("\nBir secim yapiniz: ");
@@ -199,8 +202,147 @@ int main()
                 }
 
                 break;
+                case 2:
+                    printf("Waypoint ID'sini giriniz: ");
+                    scanf("%d", &id);
+                    iha->waypointList = wllRemoveById(iha->waypointList, id);
+                    printf("Waypoint listeden silindi.");
+                    break;
+
+                case 3:
+                    wllPrintList(iha->waypointList);
+                    break;
+
+                case 4:
+                    printf("Toplam waypoint sayisi: %d", wllCount(iha->waypointList));
+                    break;
+
+                case 0:
+                    subMenu = 0;
+                    break;
+
+                default:
+                    printf("\nLutfen seceneklerden bir tanesini secin.\n");
+                    break;
                 }
             }
+            break;
+
+        case 3:
+            printf("\nLutfen gorevleri duzenlenecek IHA'nin ID'sini giriniz: ");
+            scanf("%d", &id);
+            iha = hashMapGet(map, id);
+
+            if (iha == NULL)
+            {
+                printf("IHA bulunamadi.\n");
+                break;
+            }
+
+            subMenu = 1;
+            while (subMenu)
+            {
+                printf("\n1- Gorev Ekle\n");
+                printf("2- Gorev Baslat\n");
+                printf("3- Gorev Sorgula\n");
+                printf("0- Geri don\n");
+
+                printf("\nBir secim yapiniz: ");
+
+                if (scanf("%d", &subChoice) != 1)
+                {
+                    while (getchar() != '\n')
+                        ;
+                    printf("\nYanlis secim yapildi! Tekrar deneyiniz.\n\n");
+                    continue;
+                }
+
+                switch (subChoice)
+                {
+                case 1:
+                    printf("Gorev ID'sini giriniz: ");
+                    scanf("%d", &id);
+                    printf("0- KESIF\n1- KARGO\n2- ACIL\n\n");
+                    printf("Gorev tipini giriniz: ");
+                    scanf("%d", &status);
+
+                    mission = (Mission *)malloc(sizeof(Mission));
+                    mission->id = id;
+                    mission->type = (MissionType)status;
+                    mission->ihaId = iha->id;
+
+                    missionQueueEnqueue(iha->missionQueue, mission);
+                    bstInsert(missionBst, mission->id, mission);
+
+                    printf("Gorev eklendi.\n");
+                    break;
+
+                case 2:
+                    mission = missionQueueDequeue(iha->missionQueue);
+                    if (mission == NULL)
+                    {
+                        printf("Kuyrukta gorev yok.");
+                        break;
+                    }
+                    ihaSetStatus(iha, GOREVDE);
+
+                    printf("\nGorev Baslatildi!\n- Gorev ID: #%d\n- Gorev Turu: ", mission->id);
+
+                    switch (mission->type)
+                    {
+                    case KESIF:
+                        printf("KESIF");
+                        break;
+                    case KARGO:
+                        printf("KARGO");
+                        break;
+                    case ACIL:
+                        printf("ACIL");
+                        break;
+                    }
+
+                    printf("\n- IHA ID: %d\n", mission->ihaId);
+                    break;
+
+                case 3:
+                    printf("Gorev ID'sini giriniz: ");
+                    scanf("%d", &id);
+
+                    mission = bstSearch(missionBst, id);
+                    if (mission == NULL)
+                    {
+                        printf("\nGorev bulunamadi.\n");
+                        break;
+                    }
+
+                    printf("\nGorev bulundu! Gorev Bilgileri:\n- Gorev ID: #%d\n- Gorev Turu: ", mission->id);
+
+                    switch (mission->type)
+                    {
+                    case KESIF:
+                        printf("KESIF");
+                        break;
+                    case KARGO:
+                        printf("KARGO");
+                        break;
+                    case ACIL:
+                        printf("ACIL");
+                        break;
+                    }
+
+                    printf("\n- IHA id: %d\n", mission->ihaId);
+                    break;
+
+                case 0:
+                    subMenu = 0;
+                    break;
+
+                default:
+                    printf("\nLutfen seceneklerden bir tanesini secin.\n");
+                    break;
+                }
+            }
+
             break;
 
         case 0:
@@ -209,7 +351,7 @@ int main()
             break;
 
         default:
-            printf("\nLutfen seceneklerden bir tanesini secin.\n\n");
+            printf("\nLutfen seceneklerden bir tanesini secin.\n");
             break;
         }
     }

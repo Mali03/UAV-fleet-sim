@@ -12,7 +12,7 @@ Bst *bstCreate()
     return newBst;
 }
 
-void bstInsert(Bst *bst, int key, Iha *value)
+void bstInsert(Bst *bst, int key, Mission *value)
 {
     BstNode *newNode = (BstNode *)malloc(sizeof(BstNode));
     newNode->key = key;
@@ -51,14 +51,14 @@ void bstInsert(Bst *bst, int key, Iha *value)
         }
         else
         {                           // key == current->key
-            current->value = value; // sadece Iha *value güncellensin
+            current->value = value; // sadece Mission *value güncellensin
             free(newNode);          // yeniye gerek yok
             return;
         }
     }
 }
 
-Iha *bstSearch(Bst *bst, int key)
+Mission *bstSearch(Bst *bst, int key)
 {
     BstNode *current = bst->root;
 
@@ -90,7 +90,7 @@ Iha *bstSearch(Bst *bst, int key)
     }
 }
 
-Iha *bstDelete(Bst *bst, int key)
+Mission *bstDelete(Bst *bst, int key)
 {
     BstNode *current = bst->root;
 
@@ -98,7 +98,7 @@ Iha *bstDelete(Bst *bst, int key)
         return NULL;
 
     BstNode *parent = NULL;
-    Iha *dondurulecek = NULL;
+    Mission *dondurulecek = NULL;
 
     while (1)
     {

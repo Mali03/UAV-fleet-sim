@@ -2,13 +2,14 @@
 #define BST_H
 
 #include "../iha/iha.h"
+#include "../queue/queue.h"
 
 //* Veri Modelleri
 
 typedef struct BstNode
 {
     int key;
-    Iha *value;
+    Mission *value;
     struct BstNode *left;
     struct BstNode *right;
 } BstNode;
@@ -21,9 +22,9 @@ typedef struct Bst
 //* Fonksiyon İmzaları
 
 Bst *bstCreate();
-void bstInsert(Bst *bst, int key, Iha *value);
-Iha *bstSearch(Bst *bst, int key);
-Iha *bstDelete(Bst *bst, int key);
+void bstInsert(Bst *bst, int key, Mission *value);
+Mission *bstSearch(Bst *bst, int key);
+Mission *bstDelete(Bst *bst, int key);
 void bstFree(Bst *bst);
 void bstPrintInOrder(Bst *bst);
 

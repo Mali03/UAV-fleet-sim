@@ -2,6 +2,7 @@
 #define IHA_H
 
 #include "../waypoint/waypoint.h"
+#include "../queue/queue.h"
 
 //* Veri Modelleri
 
@@ -14,14 +15,6 @@ typedef enum
     YAKIT_DUSUK = 3
 } IhaStatus;
 
-// İHA görev tipleri
-typedef enum
-{
-    KESIF = 0,
-    KARGO = 1,
-    ACIL = 2
-} MissionType;
-
 typedef struct Iha
 {
     int id;
@@ -29,8 +22,8 @@ typedef struct Iha
     float fuel;                 // 0-100 aralığında (%)
     float lat, lon;             // konum (varsayılan = 0.0f) (lat = latitude (enlem) - lon = longitude (boylam))
     IhaStatus status;           // varsayılan = BOSTA
-    MissionType currentMission; // varsayılan = KESIF
     WaypointNode *waypointList;
+    MissionQueue *missionQueue;
 } Iha;
 
 //* Fonksiyon İmzaları

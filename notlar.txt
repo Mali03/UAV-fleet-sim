@@ -1,5 +1,5 @@
 cd C:\Users\Mali\Desktop\Veri Yapıları Proje
-gcc main.c iha/iha.c hash_map/hash_map.c bst/bst.c linked_list/linked_list.c waypoint/linked_list.c -o program.exe && program.exe
+gcc main.c iha/iha.c hash_map/hash_map.c bst/bst.c waypoint/linked_list.c queue/queue.c -o program.exe && program.exe
 
 Veri yapısı eşleştirmeleri:
 BST → waypoint deposu (ekle/ara/sil)
