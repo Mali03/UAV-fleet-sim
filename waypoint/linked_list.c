@@ -54,7 +54,7 @@ void wllPrintList(WaypointNode *head)
 {
     if (head == NULL)
     {
-        printf("Listede eleman yok!");
+        printf("IHA Herhangi bir waypointe sahip degil!");
         return;
     }
     WaypointNode *temp2 = head;

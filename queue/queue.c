@@ -54,17 +54,38 @@ Mission *missionQueuePeek(MissionQueue *q)
     return q->head->value;
 }
 
-int missionQueueIsEmpty(MissionQueue *q) {
+int missionQueueIsEmpty(MissionQueue *q)
+{
     return q->head == NULL;
 }
 
-void missionQueueFree(MissionQueue *q) {
+void missionQueueFree(MissionQueue *q)
+{
     MissionQueueNode *temp;
-    while (q->head != NULL) {
+    while (q->head != NULL)
+    {
         temp = q->head;
         q->head = q->head->next;
         free(temp);
     }
 
     free(q);
+}
+
+void missionQueuePrint(MissionQueue *q)
+{
+    if (missionQueueIsEmpty(q))
+    {
+        printf("IHA'nin herhangi bir gorevi bulunmamaktadir.\n");
+        return;
+    }
+    MissionQueueNode *temp = q->head;
+
+    const char *types[] = {"KESIF", "KARGO", "ACIL"};
+
+    while (temp != NULL)
+    {
+        printf("[%d] Gorev tipi: %s\n", temp->value->id, types[temp->value->type]);
+        temp = temp->next;
+    }
 }

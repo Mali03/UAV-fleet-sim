@@ -41,5 +41,6 @@ Mission *missionQueueDequeue(MissionQueue *q);
 Mission *missionQueuePeek(MissionQueue *q);
 int missionQueueIsEmpty(MissionQueue *q);
 void missionQueueFree(MissionQueue *q);
+void missionQueuePrint(MissionQueue *q);
 
 #endif

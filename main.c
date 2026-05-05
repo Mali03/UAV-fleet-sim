@@ -20,6 +20,7 @@ int main()
     HashMap *map = hashMapCreate();
     Bst *missionBst = bstCreate();
     Mission *mission;
+    HashNode *node;
 
     printf("\n==========================================================");
     printf("\nInsansiz Hava Araci Filo Yonetim ve Gorev Planlama Sistemi");
@@ -51,6 +52,7 @@ int main()
                 printf("3- IHA Yakit Guncelle\n");
                 printf("4- IHA Durum Ayarla\n");
                 printf("5- IHA Sil\n");
+                printf("6- Tum IHA Bilgilerini Yazdir\n");
                 printf("0- Geri don\n");
 
                 printf("\nBir secim yapiniz: ");
@@ -146,6 +148,23 @@ int main()
                         hashMapRemove(map, id);
                     }
                     break;
+
+                case 6:
+                    for (int i = 0; i < TABLE_SIZE; i++)
+                    {
+                        node = map->buckets[i];
+                        while (node != NULL)
+                        {
+                            ihaPrint(node->value);
+                            printf("Waypointler:\n");
+                            wllPrintList(node->value->waypointList);
+                            printf("\n\nGorevler:\n");
+                            missionQueuePrint(node->value->missionQueue);
+                            printf("\n");
+                            node = node->next;
+                        }
+                    }
+                    break;
                 case 0:
                     subMenu = 0;
                     break;
@@ -210,7 +229,7 @@ int main()
                     break;
 
                 case 3:
-                    wllPrintList(iha->waypointList);
+                    wllPrintList(node->value->waypointList);
                     break;
 
                 case 4:

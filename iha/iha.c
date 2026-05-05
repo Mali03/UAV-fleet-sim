@@ -28,7 +28,7 @@ void ihaPrint(Iha *iha)
     printf("------ Iha Bilgileri: ------\n");
     printf("ID: %d\n", iha->id);
     printf("Isim: %s\n", iha->name);
-    printf("Yakiti: %.1f%%\n", iha->fuel);
+    printf("Yakiti: %%%.1f\n", iha->fuel);
     printf("Koordinatlar: lat:%f lon:%f\n\n", iha->lat, iha->lon);
 }
 
