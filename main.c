@@ -229,7 +229,7 @@ int main()
                     break;
 
                 case 3:
-                    wllPrintList(node->value->waypointList);
+                    wllPrintList(iha->waypointList);
                     break;
 
                 case 4:
