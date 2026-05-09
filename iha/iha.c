@@ -22,6 +22,7 @@ Iha *ihaCreate(int id, char *name, float fuel)
 
 void ihaPrint(Iha *iha)
 {
+    const char *statuses[]= {"BOSTA", "GOREVDE", "ARIZALI", "YAKIT_DUSUK"};
     if (iha == NULL)
         return;
 
@@ -29,6 +30,7 @@ void ihaPrint(Iha *iha)
     printf("ID: %d\n", iha->id);
     printf("Isim: %s\n", iha->name);
     printf("Yakiti: %%%.1f\n", iha->fuel);
+    printf("Durum: %s\n", statuses[iha->status] );
     printf("Koordinatlar: lat:%f lon:%f\n\n", iha->lat, iha->lon);
 }
 
