@@ -7,8 +7,6 @@
 #include "bst/bst.h"
 #include "waypoint/linked_list.h"
 
-// TODO tüm ihaları yazdırma ekle
-
 int main()
 {
     int menu = 1, subMenu = 1;

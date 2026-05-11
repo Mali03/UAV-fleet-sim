@@ -22,7 +22,7 @@ void hashMapPut(HashMap *map, int key, Iha *value) // key->id tutar / value -> i
 
     int index = (key < 0 ? -key : key) % TABLE_SIZE;
 
-    // aynı keye sahip varsa linked listte sıraya ekliyor
+    // aynı keye sahip varsa onun value'sini degistiriyo
 
     HashNode *current = map->buckets[index];
     while (current != NULL)

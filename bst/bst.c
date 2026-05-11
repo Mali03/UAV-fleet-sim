@@ -122,7 +122,6 @@ Mission *bstDelete(Bst *bst, int key)
         }
         else
         {
-            // tam anlamadım sonra bakcam
             if (current->left == NULL && current->right == NULL)
             {
                 dondurulecek = current->value;

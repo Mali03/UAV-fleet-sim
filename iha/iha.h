@@ -19,9 +19,9 @@ typedef struct Iha
 {
     int id;
     char name[50];
-    float fuel;                 // 0-100 aralığında (%)
-    float lat, lon;             // konum (varsayılan = 0.0f) (lat = latitude (enlem) - lon = longitude (boylam))
-    IhaStatus status;           // varsayılan = BOSTA
+    float fuel;       // 0-100 aralığında (%)
+    float lat, lon;   // konum (varsayılan = 0.0f) (lat = latitude (enlem) - lon = longitude (boylam))
+    IhaStatus status; // varsayılan = BOSTA
     WaypointNode *waypointList;
     MissionQueue *missionQueue;
 } Iha;
